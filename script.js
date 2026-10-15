@@ -1,19 +1,18 @@
 
 document.addEventListener("DOMContentLoaded", function () {
     const whatsappButton = document.getElementById("whatsapp");
-
-    // Replace this with your academy's WhatsApp number.
     const phoneNumber = "919393301816";
 
-    whatsappButton.href =
-        "https://wa.me/" + 919493301816;
+    if (whatsappButton) {
+        whatsappButton.href = "https://wa.me/" + phoneNumber;
+    }
 });
 
-
+// Classroom Photos
 const classroomPhotos = [
-    "./twoo.jpeg",
-    "./three.jpeg",
-    "./four.jpeg"
+    "twoo.jpeg",
+    "three.jpeg",
+    "four.jpeg"
 ];
 
 let classroomSlideIndex = 0;
@@ -22,25 +21,35 @@ function showClassroomSlide() {
     const img = document.getElementById("classroomSlideImage");
     const caption = document.getElementById("classroomSlideCaption");
 
+    if (!img || !caption) return;
+
+    const photo = classroomPhotos[classroomSlideIndex];
+
     img.onerror = function () {
-        alert("Photo not found: " + classroomPhotos[classroomSlideIndex]);
+        caption.textContent = "Photo not found: " + photo;
     };
 
-    img.src = classroomPhotos[classroomSlideIndex];
+    img.onload = function () {
+        caption.textContent =
+            "Classroom Photo " +
+            (classroomSlideIndex + 1) +
+            " of " + classroomPhotos.length;
+    };
 
-    caption.textContent =
-        "Classroom Photo " + (classroomSlideIndex + 1) +
-        " of " + classroomPhotos.length;
+    img.src = photo;
 }
 
 function openClassroomSlideshow() {
     classroomSlideIndex = 0;
     showClassroomSlide();
-    document.getElementById("classroomSlideshow").style.display = "flex";
+
+    const slideshow = document.getElementById("classroomSlideshow");
+    if (slideshow) slideshow.style.display = "flex";
 }
 
 function closeClassroomSlideshow() {
-    document.getElementById("classroomSlideshow").style.display = "none";
+    const slideshow = document.getElementById("classroomSlideshow");
+    if (slideshow) slideshow.style.display = "none";
 }
 
 function changeClassroomSlide(direction) {
@@ -51,40 +60,44 @@ function changeClassroomSlide(direction) {
     showClassroomSlide();
 }
 
-const classroomPhotos = [
-    "twoo.jpeg",
-    "three.jpeg",
-    "four.jpeg"
-];
+// Gallery Photo Collections
 const photoCollections = {
     classrooms: [
-        "./twoo.jpeg",
-        "./three.jpeg",
-        "./four.jpeg"
+        "twoo.jpeg",
+        "three.jpeg",
+        "four.jpeg"
     ],
 
     students: [
-        "./one.jpeg",
-        "./twoo.jpeg",
-        "./four.jpeg"
+        "one.jpeg",
+        "twoo.jpeg",
+        "four.jpeg"
     ],
 
     faculty: [
-        "./teacher.jpeg",
-        "./five.jpeg",
-        "./four.jpeg"
+        "teacher.jpeg",
+        "five.jpeg",
+        "four.jpeg"
     ]
 };
+
 let currentPhotos = [];
 let currentSlideIndex = 0;
 let currentCategory = "";
 
 function openSlideshow(category) {
+    if (!photoCollections[category]) return;
+
     currentCategory = category;
     currentPhotos = photoCollections[category];
     currentSlideIndex = 0;
 
-    document.getElementById("photoSlideshow").style.display = "flex";
+    const slideshow = document.getElementById("photoSlideshow");
+
+    if (slideshow) {
+        slideshow.style.display = "flex";
+    }
+
     showSlide();
 }
 
@@ -92,24 +105,31 @@ function showSlide() {
     const img = document.getElementById("slideImage");
     const caption = document.getElementById("slideCaption");
 
-    img.onerror = function () {
-        caption.textContent =
-            "Photo not found. Check the filename in images/: " +
-            currentPhotos[currentSlideIndex];
-    };
+    if (!img || !caption || currentPhotos.length === 0) return;
 
-    img.src = currentPhotos[currentSlideIndex];
+    const photo = currentPhotos[currentSlideIndex];
 
     const categoryName =
         currentCategory.charAt(0).toUpperCase() +
         currentCategory.slice(1);
 
-    caption.textContent =
-        categoryName + " Photo " +
-        (currentSlideIndex + 1) + " of " +
-        currentPhotos.length;
+    img.onerror = function () {
+        caption.textContent = "Photo not found: " + photo;
+    };
+
+    img.onload = function () {
+        caption.textContent =
+            categoryName + " Photo " +
+            (currentSlideIndex + 1) +
+            " of " + currentPhotos.length;
+    };
+
+    img.src = photo;
 }
+
 function changeSlide(direction) {
+    if (currentPhotos.length === 0) return;
+
     currentSlideIndex =
         (currentSlideIndex + direction + currentPhotos.length)
         % currentPhotos.length;
@@ -118,5 +138,9 @@ function changeSlide(direction) {
 }
 
 function closeSlideshow() {
-    document.getElementById("photoSlideshow").style.display = "none";
+    const slideshow = document.getElementById("photoSlideshow");
+
+    if (slideshow) {
+        slideshow.style.display = "none";
+    }
 }
