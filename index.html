@@ -1,144 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RISHI Academy | Competitive Exam Coaching</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+```javascript
+// WhatsApp Button
+document.addEventListener("DOMContentLoaded", function () {
+    const whatsappButton = document.getElementById("whatsapp");
+    const phoneNumber = "919393301816";
 
-    <header>
-        <div class="logo">RISHI <span>ACADEMY</span></div>
+    if (whatsappButton) {
+        whatsappButton.href = "https://wa.me/" + phoneNumber;
+    }
+});
 
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#courses">Courses</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+// Classroom Photos
+const classroomPhotos = [
+    "twoo.jpeg",
+    "three.jpeg",
+    "four.jpeg"
+];
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <p class="tagline">YOUR FUTURE STARTS HERE</p>
-            <h1>Dream Big.<br>Prepare Smart.<br><span>Achieve More.</span></h1>
-            <p>
-                Quality coaching and expert guidance to help
-                you prepare for competitive examinations.
-            </p>
-            <a href="#courses" class="btn">Explore Courses</a>
-        </div>
+let classroomSlideIndex = 0;
 
-        
+function showClassroomSlide() {
+    const img = document.getElementById("classroomSlideImage");
+    const caption = document.getElementById("classroomSlideCaption");
 
+    if (!img || !caption) return;
 
+    const photo = classroomPhotos[classroomSlideIndex];
 
+    img.onerror = function () {
+        caption.textContent = "Photo not found: " + photo;
+    };
 
-<div class="hero-image">
-    <img src="images/aspirants.jpeg.jpeg"
-         alt="Rishi Academy Students">
-</div>
-    </section>
+    img.onload = function () {
+        caption.textContent =
+            "Classroom Photo " +
+            (classroomSlideIndex + 1) +
+            " of " + classroomPhotos.length;
+    };
 
-    <section class="courses" id="courses">
-        <p class="tagline">LEARN WITH CONFIDENCE</p>
-        <h2>Our Courses</h2>
+    img.src = photo;
+}
 
-        <div class="course-container">
-            <div class="course-card">
-                <h3>JEE Preparation</h3>
-                <p>Build strong concepts in Physics, Chemistry
-                and Mathematics.</p>
-            </div>
+function openClassroomSlideshow() {
+    classroomSlideIndex = 0;
+    showClassroomSlide();
 
-            <div class="course-card">
-                <h3>NEET Preparation</h3>
-                <p>Prepare for medical entrance exams with
-                focused subject practice.</p>
-            </div>
+    const slideshow = document.getElementById("classroomSlideshow");
+    if (slideshow) slideshow.style.display = "flex";
+}
 
-            <div class="course-card">
-                <h3>EAMCET / EAPCET</h3>
-                <p>Improve your concepts, speed and
-                exam-solving skills.</p>
-            </div>
-        </div>
-    </section>
+function closeClassroomSlideshow() {
+    const slideshow = document.getElementById("classroomSlideshow");
+    if (slideshow) slideshow.style.display = "none";
+}
 
-   
+function changeClassroomSlide(direction) {
+    classroomSlideIndex =
+        (classroomSlideIndex + direction + classroomPhotos.length)
+        % classroomPhotos.length;
 
-<section class="gallery" id="gallery">    
-<div class="gallery-item">
-    <img src="images/one.jpeg"
-         alt="Our Students"
-         onclick="openSlideshow('students')">
-    <h3>Our Students</h3>
-    <p>Click to view photos</p>
-</div>
+    showClassroomSlide();
+}
 
-    <div class="gallery-item">
-        <img src="images/twoo.jpeg"
-             alt="Our Classrooms"
-             onclick="openSlideshow('classrooms')">
-        <h3>Our Classrooms</h3>
-        <p>Click to view photos</p>
-    </div>
-    <div class="gallery-item">
-        <img src="images/teacher.jpeg"
-             alt="Our Faculty"
-             onclick="openSlideshow('faculty')">
-        <h3>Our Faculty</h3>
-        <p>Click to view photos</p>
-    </div>
+// Gallery Photo Collections
+const photoCollections = {
+    classrooms: [
+        "twoo.jpeg",
+        "three.jpeg",
+        "four.jpeg"
+    ],
 
-</section>
-<div id="photoSlideshow" class="slideshow">
+    students: [
+        "one.jpeg",
+        "twoo.jpeg",
+        "four.jpeg"
+    ],
 
-    <span class="close"
-          onclick="closeSlideshow()">&times;</span>
+    faculty: [
+        "teacher.jpeg",
+        "five.jpeg",
+        "four.jpeg"
+    ]
+};
 
-    <button class="prev"
-            onclick="changeSlide(-1)">&#10094;</button>
+let currentPhotos = [];
+let currentSlideIndex = 0;
+let currentCategory = "";
 
-    <div class="slide-content">
-        <img id="slideImage" src="" alt="Academy photo">
-        <p id="slideCaption"></p>
-    </div>
+function openSlideshow(category) {
+    if (!photoCollections[category]) return;
 
-    <button class="next"
-            onclick="changeSlide(1)">&#10095;</button>
+    currentCategory = category;
+    currentPhotos = photoCollections[category];
+    currentSlideIndex = 0;
 
-</div>
-<section class="contact-info" id="contact">
-    <h3>Contact RISHI Academy</h3>
-    <p>
-        <strong>Email:</strong>
-        <a href="mailto:vravindhar78@gmail.com">
-            Send us an Email
-        </a>
-    </p>
-    <p>
-         <strong>Location:</strong>
-        <a href="https://maps.app.goo.gl/H1YDCV4XVuM2Bd766?g_st=ac"
-           target="_blank"
-           rel="noopener noreferrer">
-            Open in Google Maps
-        </a>
-    </p>
-    <p>
-        <strong>WhatsApp:</strong>
-        <a href="https://wa.me/9493301816"
-           target="_blank"
-           rel="noopener noreferrer">
-            Chat with Us on WhatsApp
-        </a>
-    </p>
-</section>
-    <footer>
-        <p>&copy; 2026 RISHI Academy. All rights reserved.<b/p>
-    </footer>
+    const slideshow = document.getElementById("photoSlideshow");
 
-    <script src="script.js"></script>
-</body>
-</html>
+    if (slideshow) {
+        slideshow.style.display = "flex";
+    }
+
+    showSlide();
+}
+
+function showSlide() {
+    const img = document.getElementById("slideImage");
+    const caption = document.getElementById("slideCaption");
+
+    if (!img || !caption || currentPhotos.length === 0) return;
+
+    const photo = currentPhotos[currentSlideIndex];
+
+    const categoryName =
+        currentCategory.charAt(0).toUpperCase() +
+        currentCategory.slice(1);
+
+    img.onerror = function () {
+        caption.textContent = "Photo not found: " + photo;
+    };
+
+    img.onload = function () {
+        caption.textContent =
+            categoryName + " Photo " +
+            (currentSlideIndex + 1) +
+            " of " + currentPhotos.length;
+    };
+
+    img.src = photo;
+}
+
+function changeSlide(direction) {
+    if (currentPhotos.length === 0) return;
+
+    currentSlideIndex =
+        (currentSlideIndex + direction + currentPhotos.length)
+        % currentPhotos.length;
+
+    showSlide();
+}
+
+function closeSlideshow() {
+    const slideshow = document.getElementById("photoSlideshow");
+
+    if (slideshow) {
+        slideshow.style.display = "none";
+    }
+}
+```
