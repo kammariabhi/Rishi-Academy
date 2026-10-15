@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 const classroomPhotos = [
-    "images/twoo.jpeg",
-    "images/three.jpeg",
-    "images/four.jpeg"
+    "./twoo.jpeg",
+    "./three.jpeg",
+    "./four.jpeg"
 ];
 
 let classroomSlideIndex = 0;
@@ -58,21 +58,21 @@ const classroomPhotos = [
 ];
 const photoCollections = {
     classrooms: [
-        "twoo.jpeg",
-        "three.jpeg",
-        "four.jpeg"
+        "./twoo.jpeg",
+        "./three.jpeg",
+        "./four.jpeg"
     ],
 
     students: [
-        "one.jpeg",
-        "twoo.jpeg",
-        "four.jpeg"
+        "./one.jpeg",
+        "./twoo.jpeg",
+        "./four.jpeg"
     ],
 
     faculty: [
-        "teacher.jpeg",
-        "five.jpeg",
-        "four.jpeg"
+        "./teacher.jpeg",
+        "./five.jpeg",
+        "./four.jpeg"
     ]
 };
 let currentPhotos = [];
